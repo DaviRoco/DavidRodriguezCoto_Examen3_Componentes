@@ -72,7 +72,7 @@ public class BookChildRecordController {
                     i++;
                 }
             }
-            childrenBookcount.add(child.toString() + ", cantidad de libros leídos: " + i);
+            childrenBookcount.add("Identificación: " + child.getId() + ", Nombre: " + child.getNombre() + ", cantidad de libros leídos: " + i);
             i = 0;
         }
         if (childrenBookcount.isEmpty()) {
