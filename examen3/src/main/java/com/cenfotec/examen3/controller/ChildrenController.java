@@ -1,6 +1,8 @@
 package com.cenfotec.examen3.controller;
 
+import com.cenfotec.examen3.domain.BookChildRecord;
 import com.cenfotec.examen3.domain.Children;
+import com.cenfotec.examen3.services.BookChildRecordService;
 import com.cenfotec.examen3.services.ChildrenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,8 @@ public class ChildrenController {
 
     @Autowired
     private ChildrenService childrenService;
+    @Autowired
+    private BookChildRecordService bookChildRecordService;
 
     @GetMapping
     public List getAll() {
@@ -39,7 +43,17 @@ public class ChildrenController {
     public ResponseEntity<Children> update(@PathVariable("id") long id,
                                          @RequestBody Children children) {
         children.setId(id);
+        Optional<BookChildRecord> record;
         Optional<Children> result = childrenService.update(children);
+        List <BookChildRecord> records = bookChildRecordService.getAll();
+        for (BookChildRecord bookRecord : records){
+            if (bookRecord.getIdChild() == id){
+                record = bookChildRecordService.findById(bookRecord.getId());
+                record.get().setNameChild(children.getNombre());
+                bookChildRecordService.update(record);
+            }
+        }
+
         if (result.isPresent()) {
             return ResponseEntity.ok().body(result.get());
         } else {

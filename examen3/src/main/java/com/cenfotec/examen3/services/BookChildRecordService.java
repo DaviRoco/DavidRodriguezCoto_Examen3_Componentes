@@ -26,14 +26,14 @@ public class BookChildRecordService {
         return Optional.of(bookChildRecordRepository.save(bookChildRecord));
     }
 
-    public Optional<BookChildRecord> update(BookChildRecord bookChildRecord) {
-        Optional<BookChildRecord> record = bookChildRecordRepository.findById(bookChildRecord.getId());
+    public Optional<BookChildRecord> update(Optional<BookChildRecord> bookChildRecord) {
+        Optional<BookChildRecord> record = bookChildRecordRepository.findById(bookChildRecord.get().getId());
         if (record.isPresent()) {
             BookChildRecord data = record.get();
-            data.setIdBook(bookChildRecord.getIdBook());
-            data.setNameBook(bookChildRecord.getNameBook());
-            data.setIdChild(bookChildRecord.getIdChild());
-            data.setNameChild(bookChildRecord.getNameChild());
+            data.setIdBook(bookChildRecord.get().getIdBook());
+            data.setNameBook(bookChildRecord.get().getNameBook());
+            data.setIdChild(bookChildRecord.get().getIdChild());
+            data.setNameChild(bookChildRecord.get().getNameChild());
             return Optional.of(bookChildRecordRepository.save(data));
         }
         return Optional.empty();
