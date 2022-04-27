@@ -2,11 +2,12 @@ package com.cenfotec.examen3.mutation;
 
 import com.cenfotec.examen3.domain.BookQL;
 import com.cenfotec.examen3.services.BookService;
+import com.coxautodev.graphql.tools.GraphQLMutationResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class BookMutation {
+public class BookMutation implements GraphQLMutationResolver{
     @Autowired
     private BookService bookService;
 

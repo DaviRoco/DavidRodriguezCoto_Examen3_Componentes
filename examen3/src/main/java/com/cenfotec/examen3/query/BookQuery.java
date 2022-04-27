@@ -4,10 +4,12 @@ import com.cenfotec.examen3.domain.BookQL;
 import com.cenfotec.examen3.services.BookService;
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 
+@Component
 public class BookQuery implements GraphQLQueryResolver {
     @Autowired
     private BookService bookService;

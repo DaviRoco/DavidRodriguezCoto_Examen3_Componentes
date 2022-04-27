@@ -1,12 +1,10 @@
 package com.cenfotec.examen3.services;
 
-import com.cenfotec.examen3.domain.Book;
 import com.cenfotec.examen3.domain.BookQL;
 import com.cenfotec.examen3.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
