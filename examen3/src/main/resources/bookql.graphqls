@@ -1,0 +1,17 @@
+type Book {
+    id: ID!,
+    name: String,
+    author: String,
+    genre: String
+}
+
+type Query {
+    books(count: Int):[Book],
+    book(id: ID): Book
+}
+
+type Mutation {
+    createBook(name: String!,
+                    author: String!,
+                    genre: String): Book
+}
