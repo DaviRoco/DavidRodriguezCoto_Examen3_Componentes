@@ -2,7 +2,8 @@ type Book {
     id: ID!,
     name: String,
     author: String,
-    genre: String
+    genre: String,
+    status: String
 }
 
 type Query {
@@ -13,5 +14,12 @@ type Query {
 type Mutation {
     createBook(name: String!,
                     author: String!,
-                    genre: String): Book
+                    genre: String,
+                    status: String): Book,
+    updateBook(id: ID!,
+                  name: String,
+                  author: String,
+                  genre: String,
+                  status: String): Book,
+    deleteBook(id: ID!): Book
 }

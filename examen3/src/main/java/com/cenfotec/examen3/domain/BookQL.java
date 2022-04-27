@@ -23,4 +23,6 @@ public class BookQL implements Serializable {
     private String author;
     @Column(name = "genre", nullable = false)
     private String genre;
+    @Column(name = "status", nullable = false)
+    private String status;
 }

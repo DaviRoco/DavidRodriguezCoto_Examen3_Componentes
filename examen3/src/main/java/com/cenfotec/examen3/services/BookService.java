@@ -23,11 +23,15 @@ public class BookService {
         return this.bookRepository.findById(id);
     }
 
-    public BookQL createBook(String name, String author, String genre) {
+    public BookQL createBook(String name, String author, String genre, String status) {
         BookQL book = new BookQL();
         book.setName(name);
         book.setAuthor(author);
         book.setGenre(genre);
+        book.setStatus(status);
         return this.bookRepository.save(book);
+    }
+    public void save(BookQL bookEntity) {
+        this.bookRepository.save(bookEntity);
     }
 }
