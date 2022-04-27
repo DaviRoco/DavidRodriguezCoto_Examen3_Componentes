@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.ArrayList;
 
 @Entity
 public class Parent {
@@ -15,6 +16,7 @@ public class Parent {
     private String direccion;
     private String telefonoPrimario;
     private String telefonoSecundario;
+    private String hijos = "";
 
     public Parent() {
     }
@@ -26,6 +28,16 @@ public class Parent {
         this.direccion = direccion;
         this.telefonoPrimario = telefonoPrimario;
         this.telefonoSecundario = telefonoSecundario;
+    }
+
+    public Parent(Long id, String nombre, String cedula, String direccion, String telefonoPrimario, String telefonoSecundario, String hijos) {
+        this.id = id;
+        this.nombre = nombre;
+        this.cedula = cedula;
+        this.direccion = direccion;
+        this.telefonoPrimario = telefonoPrimario;
+        this.telefonoSecundario = telefonoSecundario;
+        this.hijos = hijos;
     }
 
     public Long getId() {
@@ -74,5 +86,13 @@ public class Parent {
 
     public void setTelefonoSecundario(String telefonoSecundario) {
         this.telefonoSecundario = telefonoSecundario;
+    }
+
+    public String getHijos() {
+        return hijos;
+    }
+
+    public void setHijos(String hijos) {
+        this.hijos = hijos;
     }
 }

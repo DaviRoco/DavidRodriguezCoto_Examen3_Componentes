@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,17 +36,41 @@ public class ParentController {
         }
     }
 
+    @GetMapping(path = {"/name_middlename/{search}"})
+    public ResponseEntity<List<Parent>> findByNameMiddlename(@PathVariable String search) {
+        List<Parent> parents = parentService.getAll();
+        List<Parent> result = new ArrayList<>();
+        for (Parent parent : parents) {
+            if (parent.getNombre().contains(search)) {
+                result.add(parent);
+            }
+        }
+        if (result.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok().body(result);
+        }
+    }
+
     @GetMapping(path = {"/family/{id}"})
-    public ResponseEntity<Parent> findFamily(@PathVariable long id) {
+    public ResponseEntity<Optional<Parent>> findFamily(@PathVariable long id) {
         Optional<Parent> result = parentService.findById(id);
-        List <Children> children = childrenService.getAll();
-        for (Children child : children){
-            if (child.getIdParent() == id){
-                System.out.println("Hijo " + child.getNombre());
+        String hijos = "";
+        int index = 0;
+        List<Children> children = childrenService.getAll();
+        for (Children child : children) {
+            if (child.getIdParent() == id) {
+                if (index > 0) {
+                    hijos = hijos + ", " + child.getNombre();
+                } else {
+                    hijos = child.getNombre();
+                }
+                index++;
             }
         }
         if (result.isPresent()) {
-            return ResponseEntity.ok().body(result.get());
+            result.get().setHijos(hijos);
+            return ResponseEntity.ok().body(result);
         } else {
             return ResponseEntity.notFound().build();
         }
