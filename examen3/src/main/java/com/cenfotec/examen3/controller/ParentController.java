@@ -55,21 +55,16 @@ public class ParentController {
     @GetMapping(path = {"/family/{id}"})
     public ResponseEntity<Optional<Parent>> findFamily(@PathVariable long id) {
         Optional<Parent> result = parentService.findById(id);
-        String hijos = "";
+        ArrayList<String> hijos = new ArrayList<>();
         int index = 0;
         List<Children> children = childrenService.getAll();
         for (Children child : children) {
             if (child.getIdParent() == id) {
-                if (index > 0) {
-                    hijos = hijos + ", " + child.getNombre();
-                } else {
-                    hijos = child.getNombre();
-                }
-                index++;
+                hijos.add(child.toString());
             }
         }
         if (result.isPresent()) {
-            result.get().setHijos(hijos);
+            result.get().setHijos(hijos.toString());
             return ResponseEntity.ok().body(result);
         } else {
             return ResponseEntity.notFound().build();

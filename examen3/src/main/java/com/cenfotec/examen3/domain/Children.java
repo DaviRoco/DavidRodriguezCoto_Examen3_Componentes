@@ -65,4 +65,15 @@ public class Children {
     public void setIdParent(Long idParent) {
         this.idParent = idParent;
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "id=" + id +
+                ", nombre='" + nombre +
+                ", planUsuario=" + planUsuario +
+                ", alergias=" + alergias  +
+                ", idParent=" + idParent +
+                '}';
+    }
 }

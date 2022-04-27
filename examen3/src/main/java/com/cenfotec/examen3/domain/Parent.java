@@ -16,7 +16,7 @@ public class Parent {
     private String direccion;
     private String telefonoPrimario;
     private String telefonoSecundario;
-    private String hijos = "";
+    private String hijos;
 
     public Parent() {
     }
@@ -94,5 +94,18 @@ public class Parent {
 
     public void setHijos(String hijos) {
         this.hijos = hijos;
+    }
+
+    @Override
+    public String toString() {
+        return "Parent{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", cedula='" + cedula + '\'' +
+                ", direccion='" + direccion + '\'' +
+                ", telefonoPrimario='" + telefonoPrimario + '\'' +
+                ", telefonoSecundario='" + telefonoSecundario + '\'' +
+                ", hijos='" + hijos + '\'' +
+                '}';
     }
 }
