@@ -1,15 +1,15 @@
 package com.cenfotec.examen3.domain;
 
-public class Books {
+public class Book {
     private int id;
     private String name;
     private String author;
     private String genre;
 
-    public Books() {
+    public Book() {
     }
 
-    public Books(int id, String name, String author, String genre) {
+    public Book(int id, String name, String author, String genre) {
         this.id = id;
         this.name = name;
         this.author = author;

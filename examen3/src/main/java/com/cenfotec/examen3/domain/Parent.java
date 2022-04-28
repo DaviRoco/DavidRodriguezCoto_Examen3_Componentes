@@ -15,7 +15,6 @@ public class Parent {
     private String direccion;
     private String telefonoPrimario;
     private String telefonoSecundario;
-    private String hijos;
 
     public Parent() {
     }
@@ -27,16 +26,6 @@ public class Parent {
         this.direccion = direccion;
         this.telefonoPrimario = telefonoPrimario;
         this.telefonoSecundario = telefonoSecundario;
-    }
-
-    public Parent(Long id, String nombre, String cedula, String direccion, String telefonoPrimario, String telefonoSecundario, String hijos) {
-        this.id = id;
-        this.nombre = nombre;
-        this.cedula = cedula;
-        this.direccion = direccion;
-        this.telefonoPrimario = telefonoPrimario;
-        this.telefonoSecundario = telefonoSecundario;
-        this.hijos = hijos;
     }
 
     public Long getId() {
@@ -87,24 +76,4 @@ public class Parent {
         this.telefonoSecundario = telefonoSecundario;
     }
 
-    public String getHijos() {
-        return hijos;
-    }
-
-    public void setHijos(String hijos) {
-        this.hijos = hijos;
-    }
-
-    @Override
-    public String toString() {
-        return "Parent{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", cedula='" + cedula + '\'' +
-                ", direccion='" + direccion + '\'' +
-                ", telefonoPrimario='" + telefonoPrimario + '\'' +
-                ", telefonoSecundario='" + telefonoSecundario + '\'' +
-                ", hijos='" + hijos + '\'' +
-                '}';
-    }
 }

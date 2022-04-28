@@ -1,7 +1,7 @@
 package com.cenfotec.examen3.controller;
 
 import com.cenfotec.examen3.domain.BookChildRecord;
-import com.cenfotec.examen3.domain.Books;
+import com.cenfotec.examen3.domain.Book;
 import com.cenfotec.examen3.domain.Children;
 import com.cenfotec.examen3.services.BookChildRecordService;
 import com.cenfotec.examen3.services.ChildrenService;
@@ -37,12 +37,12 @@ public class BookChildRecordController {
     }
 
     @GetMapping(path = {"/child/{id}"})
-    public ResponseEntity<List<Books>> findByChild(@PathVariable int id) {
-        ArrayList<Books> libros = createTempBooks();
+    public ResponseEntity<List<Book>> findByChild(@PathVariable int id) {
+        ArrayList<Book> libros = createTempBooks();
         Optional<Children> child = childrenService.findById(id);
         List<BookChildRecord> bookChildRecords = bookChildRecordService.getAll();
-        List<Books> result = new ArrayList<>();
-        for (Books book : libros) {
+        List<Book> result = new ArrayList<>();
+        for (Book book : libros) {
             for (BookChildRecord bookChildRecord : bookChildRecords) {
                 if (bookChildRecord.getIdBook() == book.getId() && bookChildRecord.getIdChild() == id) {
                     result.add(book);
@@ -80,7 +80,7 @@ public class BookChildRecordController {
 
     @PostMapping
     public BookChildRecord create(@RequestBody BookChildRecord bookChildRecord) {
-        ArrayList<Books> libros = createTempBooks();
+        ArrayList<Book> libros = createTempBooks();
         Optional<Children> child = childrenService.findById(bookChildRecord.getIdChild());
         for (int i = 0; i < libros.size(); i++) {
             if (bookChildRecord.getIdBook() == libros.get(i).getId() && child.isPresent()) {
@@ -92,14 +92,14 @@ public class BookChildRecordController {
         return null;
     }
 
-    private ArrayList<Books> createTempBooks() {
-        ArrayList<Books> libros = new ArrayList<Books>() {
+    private ArrayList<Book> createTempBooks() {
+        ArrayList<Book> libros = new ArrayList<Book>() {
         };
-        libros.add(new Books(1, "Libro1", "test", "test"));
-        libros.add(new Books(2, "Libro2", "test", "test"));
-        libros.add(new Books(3, "Libro3", "test", "test"));
-        libros.add(new Books(4, "Libro4", "test", "test"));
-        libros.add(new Books(5, "Libro5", "test", "test"));
+        libros.add(new Book(1, "Libro1", "test", "test"));
+        libros.add(new Book(2, "Libro2", "test", "test"));
+        libros.add(new Book(3, "Libro3", "test", "test"));
+        libros.add(new Book(4, "Libro4", "test", "test"));
+        libros.add(new Book(5, "Libro5", "test", "test"));
 
         return libros;
     }

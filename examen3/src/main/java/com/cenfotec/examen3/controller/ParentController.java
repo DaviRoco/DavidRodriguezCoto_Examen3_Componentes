@@ -1,6 +1,7 @@
 package com.cenfotec.examen3.controller;
 
 import com.cenfotec.examen3.domain.Children;
+import com.cenfotec.examen3.domain.Family;
 import com.cenfotec.examen3.domain.Parent;
 import com.cenfotec.examen3.services.ChildrenService;
 import com.cenfotec.examen3.services.ParentService;
@@ -53,19 +54,20 @@ public class ParentController {
     }
 
     @GetMapping(path = {"/family/{id}"})
-    public ResponseEntity<Optional<Parent>> findFamily(@PathVariable long id) {
-        Optional<Parent> result = parentService.findById(id);
-        ArrayList<String> hijos = new ArrayList<>();
-        int index = 0;
+    public ResponseEntity<Family> findFamily(@PathVariable long id) {
+        Optional<Parent> parent = parentService.findById(id);
+        ArrayList<Children> hijos = new ArrayList<>();
         List<Children> children = childrenService.getAll();
         for (Children child : children) {
-            if (child.getIdParent() == id) {
-                hijos.add(child.toString());
+            if (child.getIdParent() == parent.get().getId()) {
+                hijos.add(child);
             }
         }
-        if (result.isPresent()) {
-            result.get().setHijos(hijos.toString());
-            return ResponseEntity.ok().body(result);
+        if (parent.isPresent()) {
+            Family family = new Family();
+            family.setParent(parent.get());
+            family.setChildren(hijos);
+            return ResponseEntity.ok().body(family);
         } else {
             return ResponseEntity.notFound().build();
         }
