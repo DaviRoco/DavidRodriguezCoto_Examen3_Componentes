@@ -1,7 +1,7 @@
 package com.cenfotec.examen3.mutation;
 
 import com.cenfotec.examen3.domain.BookQL;
-import com.cenfotec.examen3.services.BookService;
+import com.cenfotec.examen3.services.BookQLService;
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -9,16 +9,16 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 @Component
-public class BookMutation implements GraphQLMutationResolver {
+public class BookQLMutation implements GraphQLMutationResolver {
     @Autowired
-    private BookService bookService;
+    private BookQLService bookQLService;
 
     public BookQL createBook(String name, String author, String genre, String status) {
-        return this.bookService.createBook(name, author, genre, status);
+        return this.bookQLService.createBook(name, author, genre, status);
     }
 
     public BookQL updateBook(int id, String name, String author, String genre, String status) {
-        Optional<BookQL> book = this.bookService.getBook(id);
+        Optional<BookQL> book = this.bookQLService.getBook(id);
         if (book.isPresent()) {
             BookQL bookEntity = book.get();
             if (name != null)
@@ -29,18 +29,18 @@ public class BookMutation implements GraphQLMutationResolver {
                 bookEntity.setGenre(genre);
             if (status != null)
                 bookEntity.setStatus(status);
-            bookService.save(bookEntity);
+            bookQLService.save(bookEntity);
             return bookEntity;
         }
         return null;
     }
 
     public BookQL deleteBook(int id) {
-        Optional<BookQL> book = this.bookService.getBook(id);
+        Optional<BookQL> book = this.bookQLService.getBook(id);
         if (book.isPresent()) {
             BookQL bookEntity = book.get();
             bookEntity.setStatus("Inactivo");
-            bookService.save(bookEntity);
+            bookQLService.save(bookEntity);
             return bookEntity;
         }
         return null;
