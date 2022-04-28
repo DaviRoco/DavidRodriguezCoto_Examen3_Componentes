@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+
 @RestController
 @RequestMapping({"/children"})
 public class ChildrenController {
@@ -41,13 +42,13 @@ public class ChildrenController {
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<Children> update(@PathVariable("id") long id,
-                                         @RequestBody Children children) {
+                                           @RequestBody Children children) {
         children.setId(id);
         Optional<BookChildRecord> record;
         Optional<Children> result = childrenService.update(children);
-        List <BookChildRecord> records = bookChildRecordService.getAll();
-        for (BookChildRecord bookRecord : records){
-            if (bookRecord.getIdChild() == id){
+        List<BookChildRecord> records = bookChildRecordService.getAll();
+        for (BookChildRecord bookRecord : records) {
+            if (bookRecord.getIdChild() == id) {
                 record = bookChildRecordService.findById(bookRecord.getId());
                 record.get().setNameChild(children.getNombre());
                 bookChildRecordService.update(record);

@@ -13,9 +13,11 @@ import java.util.Optional;
 public class BookQuery implements GraphQLQueryResolver {
     @Autowired
     private BookService bookService;
+
     public List<BookQL> getBooks(int count) {
         return this.bookService.getAllBooks(count);
     }
+
     public Optional<BookQL> getBook(int id) {
         return this.bookService.getBook(id);
     }

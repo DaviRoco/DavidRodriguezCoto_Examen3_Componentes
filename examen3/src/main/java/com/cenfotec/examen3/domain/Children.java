@@ -72,7 +72,7 @@ public class Children {
                 "id=" + id +
                 ", nombre='" + nombre +
                 ", planUsuario=" + planUsuario +
-                ", alergias=" + alergias  +
+                ", alergias=" + alergias +
                 ", idParent=" + idParent +
                 '}';
     }

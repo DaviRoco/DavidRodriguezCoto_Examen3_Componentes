@@ -31,6 +31,7 @@ public class BookService {
         book.setStatus(status);
         return this.bookRepository.save(book);
     }
+
     public void save(BookQL bookEntity) {
         this.bookRepository.save(bookEntity);
     }
