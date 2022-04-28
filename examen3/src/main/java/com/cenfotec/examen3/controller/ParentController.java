@@ -59,7 +59,7 @@ public class ParentController {
         ArrayList<Children> hijos = new ArrayList<>();
         List<Children> children = childrenService.getAll();
         for (Children child : children) {
-            if (child.getIdParent() == parent.get().getId()) {
+            if (child.getIdParent().equals(id)) {
                 hijos.add(child);
             }
         }

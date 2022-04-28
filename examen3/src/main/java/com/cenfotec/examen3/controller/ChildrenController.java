@@ -39,26 +39,13 @@ public class ChildrenController {
             return ResponseEntity.notFound().build();
         }
     }
-//    @GetMapping(path = {"/family/{idParent}"})
-//    public ResponseEntity<Children> findFamily(@PathVariable long idParent) {
-//        Optional<Parent> result = parentService.findById(idParent);
-//        List<Children> children = childrenService.getAll();
-//        List<Children> family = new ArrayList<>();
-//        for (Children child : children){
-//            if (child.getIdParent() == result.get().getId()){
-//                family.add(child);
-//            }
-//        }
-//        if (result.isPresent()) {
-//
-//            return ResponseEntity.ok().body(result.get());
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
     @PostMapping
     public Children create(@RequestBody Children children) {
-        return childrenService.save(children).get();
+        Optional<Parent> parent = parentService.findById(children.getIdParent());
+        if (parent.isPresent()){
+            return childrenService.save(children).get();
+        }
+        return null;
     }
 
     @PutMapping(value = "/{id}")
