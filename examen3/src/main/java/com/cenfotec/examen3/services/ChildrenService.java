@@ -20,6 +20,7 @@ public class ChildrenService {
     public Optional<Children> findById(long id) {
         return childrenRepository.findById(id).map(record -> Optional.of(record)).orElse(Optional.empty());
     }
+
     public List<Children> findChildrenByIdParent(int id) {
         return childrenRepository.findChildrenByIdParent(id);
     }

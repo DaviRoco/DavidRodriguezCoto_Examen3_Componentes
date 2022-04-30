@@ -1,8 +1,6 @@
 package com.cenfotec.examen3.controller;
 
-import com.cenfotec.examen3.domain.Parent;
 import com.cenfotec.examen3.domain.TempBook;
-import com.cenfotec.examen3.services.ParentService;
 import com.cenfotec.examen3.services.TempBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,10 +38,11 @@ public class ChildrenController {
             return ResponseEntity.notFound().build();
         }
     }
+
     @PostMapping
     public Children create(@RequestBody Children children) {
         Optional<Parent> parent = parentService.findById(children.getIdParent());
-        if (parent.isPresent()){
+        if (parent.isPresent()) {
             return childrenService.save(children).get();
         }
         return null;
@@ -56,9 +56,9 @@ public class ChildrenController {
         Optional<Children> result = childrenService.update(children);
         List<BookChildRecord> records = bookChildRecordService.findByIdChild(id);
         for (BookChildRecord bookRecord : records) {
-                record = bookChildRecordService.findById(bookRecord.getId());
-                record.get().setNameChild(children.getNombre());
-                bookChildRecordService.update(record);
+            record = bookChildRecordService.findById(bookRecord.getId());
+            record.get().setNameChild(children.getNombre());
+            bookChildRecordService.update(record);
         }
 
         if (result.isPresent()) {

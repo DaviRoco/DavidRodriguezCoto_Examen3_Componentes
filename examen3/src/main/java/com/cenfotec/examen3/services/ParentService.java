@@ -1,6 +1,5 @@
 package com.cenfotec.examen3.services;
 
-import com.cenfotec.examen3.domain.Children;
 import com.cenfotec.examen3.domain.Parent;
 import com.cenfotec.examen3.repositories.ParentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +24,7 @@ public class ParentService {
     public Optional<Parent> findParentByNombreContains(String nombre) {
         return parentRepository.findParentByNombreContains(nombre).map(record -> Optional.of(record)).orElse(Optional.empty());
     }
+
     public Optional<Parent> save(Parent parent) {
         return Optional.of(parentRepository.save(parent));
     }

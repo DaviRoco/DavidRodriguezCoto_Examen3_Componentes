@@ -20,10 +20,12 @@ public class BookChildRecordService {
     public Optional<BookChildRecord> findById(int id) {
         return bookChildRecordRepository.findById(id).map(record -> Optional.of(record)).orElse(Optional.empty());
     }
+
     public List<BookChildRecord> findByIdChild(Long id) {
         return bookChildRecordRepository.findByIdChild(id);
     }
-    public int countAllByIdChild(Long id){
+
+    public int countAllByIdChild(Long id) {
         return bookChildRecordRepository.countAllByIdChild(id);
     }
 

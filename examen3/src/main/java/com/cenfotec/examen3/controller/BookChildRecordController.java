@@ -1,8 +1,8 @@
 package com.cenfotec.examen3.controller;
 
 import com.cenfotec.examen3.domain.BookChildRecord;
-import com.cenfotec.examen3.domain.TempBook;
 import com.cenfotec.examen3.domain.Children;
+import com.cenfotec.examen3.domain.TempBook;
 import com.cenfotec.examen3.services.BookChildRecordService;
 import com.cenfotec.examen3.services.ChildrenService;
 import com.cenfotec.examen3.services.TempBookService;
@@ -46,7 +46,7 @@ public class BookChildRecordController {
         Optional<TempBook> book;
         for (BookChildRecord bookChildRecord : bookChildRecords) {
             book = tempBookService.findById(bookChildRecord.getIdBook());
-            if (book.isPresent()){
+            if (book.isPresent()) {
                 result.add(book);
             }
         }
@@ -75,7 +75,7 @@ public class BookChildRecordController {
     public BookChildRecord create(@RequestBody BookChildRecord bookChildRecord) {
         Optional<Children> child = childrenService.findById(bookChildRecord.getIdChild());
         Optional<TempBook> book = tempBookService.findById(bookChildRecord.getIdBook());
-        if (child.isPresent() && book.isPresent()){
+        if (child.isPresent() && book.isPresent()) {
             bookChildRecord.setNameBook(book.get().getName());
             bookChildRecord.setNameChild(child.get().getNombre());
             return bookChildRecordService.save(bookChildRecord).get();
