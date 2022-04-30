@@ -10,4 +10,5 @@ import java.util.Optional;
 @Repository
 public interface BookChildRecordRepository extends JpaRepository<BookChildRecord, Integer> {
     List<BookChildRecord> findByIdChild(Long id);
+    int countAllByIdChild(Long id);
 }

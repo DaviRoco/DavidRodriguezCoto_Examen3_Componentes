@@ -56,10 +56,8 @@ public class BookChildRecordController {
     public ResponseEntity<ArrayList<String>> getBookCount() {
         ArrayList<String> childrenBookCount = new ArrayList<>();
         List<Children> children = childrenService.getAll();
-        int bookChildRecordCount;
         for (Children child : children) {
-            bookChildRecordCount = bookChildRecordService.findByIdChild(child.getId_child()).size();
-            childrenBookCount.add("Identificación: " + child.getId_child() + ", Nombre: " + child.getNombre() + ", cantidad de libros leídos: " + bookChildRecordCount);
+            childrenBookCount.add("Identificación: " + child.getId_child() + ", Nombre: " + child.getNombre() + ", cantidad de libros leídos: " + bookChildRecordService.countAllByIdChild(child.getId_child()));
         }
         if (childrenBookCount.isEmpty()) {
             return ResponseEntity.notFound().build();

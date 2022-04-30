@@ -23,6 +23,10 @@ public class BookChildRecordService {
     public List<BookChildRecord> findByIdChild(Long id) {
         return bookChildRecordRepository.findByIdChild(id);
     }
+    public int countAllByIdChild(Long id){
+        return bookChildRecordRepository.countAllByIdChild(id);
+    }
+
     public Optional<BookChildRecord> save(BookChildRecord bookChildRecord) {
         return Optional.of(bookChildRecordRepository.save(bookChildRecord));
     }
