@@ -1,26 +1,26 @@
 package com.cenfotec.examen3.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Parent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id_parent;
     private String nombre;
     private String cedula;
     private String direccion;
     private String telefonoPrimario;
     private String telefonoSecundario;
+    @OneToMany
+    private List<Children> children;
 
     public Parent() {
     }
 
     public Parent(Long id, String nombre, String cedula, String direccion, String telefonoPrimario, String telefonoSecundario) {
-        this.id = id;
+        this.id_parent = id;
         this.nombre = nombre;
         this.cedula = cedula;
         this.direccion = direccion;
@@ -28,12 +28,22 @@ public class Parent {
         this.telefonoSecundario = telefonoSecundario;
     }
 
+    public Parent(Long id, String nombre, String cedula, String direccion, String telefonoPrimario, String telefonoSecundario, List<Children> children) {
+        this.id_parent = id;
+        this.nombre = nombre;
+        this.cedula = cedula;
+        this.direccion = direccion;
+        this.telefonoPrimario = telefonoPrimario;
+        this.telefonoSecundario = telefonoSecundario;
+        this.children = children;
+    }
+
     public Long getId() {
-        return id;
+        return id_parent;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.id_parent = id;
     }
 
     public String getNombre() {
@@ -76,4 +86,11 @@ public class Parent {
         this.telefonoSecundario = telefonoSecundario;
     }
 
+    public List<Children> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<Children> children) {
+        this.children = children;
+    }
 }

@@ -37,18 +37,14 @@ public class BookChildRecordController {
     }
 
     @GetMapping(path = {"/child/{id}"})
-    public ResponseEntity<List<Book>> findByChild(@PathVariable int id) {
-        ArrayList<Book> libros = createTempBooks();
-        Optional<Children> child = childrenService.findById(id);
-        List<BookChildRecord> bookChildRecords = bookChildRecordService.getAll();
+    public ResponseEntity<List<Book>> findByChild(@PathVariable long id) {
+        List<BookChildRecord> bookChildRecords = bookChildRecordService.findByIdChild(id);
+        List<Book> libros = createTempBooks();
         List<Book> result = new ArrayList<>();
-        for (Book book : libros) {
-            for (BookChildRecord bookChildRecord : bookChildRecords) {
-                if (bookChildRecord.getIdBook() == book.getId() && bookChildRecord.getIdChild() == id) {
-                    result.add(book);
-                }
-            }
+        for (BookChildRecord bookChildRecord : bookChildRecords) {
+            result.add(libros.get(Math.toIntExact(bookChildRecord.getIdBook() - 1)));
         }
+
         if (result.isEmpty()) {
             return ResponseEntity.notFound().build();
         } else {
@@ -58,18 +54,12 @@ public class BookChildRecordController {
 
     @GetMapping(path = {"/childrenBookcount"})
     public ResponseEntity<ArrayList<String>> getBookCount() {
-        int i = 0;
         ArrayList<String> childrenBookCount = new ArrayList<>();
         List<Children> children = childrenService.getAll();
-        List<BookChildRecord> bookChildRecords = bookChildRecordService.getAll();
+        int bookChildRecordCount;
         for (Children child : children) {
-            for (BookChildRecord bookChildRecord : bookChildRecords) {
-                if (bookChildRecord.getIdChild().equals(child.getId())) {
-                    i++;
-                }
-            }
-            childrenBookCount.add("Identificación: " + child.getId() + ", Nombre: " + child.getNombre() + ", cantidad de libros leídos: " + i);
-            i = 0;
+            bookChildRecordCount = bookChildRecordService.findByIdChild(child.getId_child()).size();
+            childrenBookCount.add("Identificación: " + child.getId_child() + ", Nombre: " + child.getNombre() + ", cantidad de libros leídos: " + bookChildRecordCount);
         }
         if (childrenBookCount.isEmpty()) {
             return ResponseEntity.notFound().build();

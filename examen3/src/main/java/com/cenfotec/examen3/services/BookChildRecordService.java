@@ -20,7 +20,9 @@ public class BookChildRecordService {
     public Optional<BookChildRecord> findById(int id) {
         return bookChildRecordRepository.findById(id).map(record -> Optional.of(record)).orElse(Optional.empty());
     }
-
+    public List<BookChildRecord> findByIdChild(Long id) {
+        return bookChildRecordRepository.findByIdChild(id);
+    }
     public Optional<BookChildRecord> save(BookChildRecord bookChildRecord) {
         return Optional.of(bookChildRecordRepository.save(bookChildRecord));
     }

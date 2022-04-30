@@ -51,16 +51,14 @@ public class ChildrenController {
     @PutMapping(value = "/{id}")
     public ResponseEntity<Children> update(@PathVariable("id") long id,
                                            @RequestBody Children children) {
-        children.setId(id);
+        children.setId_child(id);
         Optional<BookChildRecord> record;
         Optional<Children> result = childrenService.update(children);
-        List<BookChildRecord> records = bookChildRecordService.getAll();
+        List<BookChildRecord> records = bookChildRecordService.findByIdChild(id);
         for (BookChildRecord bookRecord : records) {
-            if (bookRecord.getIdChild() == id) {
                 record = bookChildRecordService.findById(bookRecord.getId());
                 record.get().setNameChild(children.getNombre());
                 bookChildRecordService.update(record);
-            }
         }
 
         if (result.isPresent()) {

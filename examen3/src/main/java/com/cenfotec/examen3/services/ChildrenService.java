@@ -20,19 +20,21 @@ public class ChildrenService {
     public Optional<Children> findById(long id) {
         return childrenRepository.findById(id).map(record -> Optional.of(record)).orElse(Optional.empty());
     }
+    public List<Children> findChildrenByIdParent(int id) {
+        return childrenRepository.findChildrenByIdParent(id);
+    }
 
     public Optional<Children> save(Children children) {
         return Optional.of(childrenRepository.save(children));
     }
 
     public Optional<Children> update(Children children) {
-        Optional<Children> record = childrenRepository.findById(children.getId());
+        Optional<Children> record = childrenRepository.findById(children.getId_child());
         if (record.isPresent()) {
             Children data = record.get();
             data.setNombre(children.getNombre());
             data.setPlanUsuario(children.getPlanUsuario());
             data.setAlergias(children.getAlergias());
-            data.setIdParent(children.getIdParent());
             return Optional.of(childrenRepository.save(data));
         }
         return Optional.empty();

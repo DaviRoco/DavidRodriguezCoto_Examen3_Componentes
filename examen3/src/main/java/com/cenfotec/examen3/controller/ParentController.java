@@ -37,37 +37,23 @@ public class ParentController {
         }
     }
 
-    @GetMapping(path = {"/name_middlename/{search}"})
-    public ResponseEntity<List<Parent>> findByNameMiddlename(@PathVariable String search) {
-        List<Parent> parents = parentService.getAll();
-        List<Parent> result = new ArrayList<>();
-        for (Parent parent : parents) {
-            if (parent.getNombre().contains(search)) {
-                result.add(parent);
-            }
-        }
-        if (result.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        } else {
+    @GetMapping(path = {"/name_middlename/{nombre}"})
+    public ResponseEntity<Optional<Parent>> findByNameMiddlename(@PathVariable String nombre) {
+        Optional<Parent> result = parentService.findParentByNombreContains(nombre);
+        if (result.isPresent()) {
             return ResponseEntity.ok().body(result);
+        } else {
+            return ResponseEntity.notFound().build();
         }
     }
 
     @GetMapping(path = {"/family/{id}"})
-    public ResponseEntity<Family> findFamily(@PathVariable long id) {
+    public ResponseEntity<Optional<Parent>> findFamily(@PathVariable long id) {
         Optional<Parent> parent = parentService.findById(id);
-        ArrayList<Children> hijos = new ArrayList<>();
-        List<Children> children = childrenService.getAll();
-        for (Children child : children) {
-            if (child.getIdParent().equals(id)) {
-                hijos.add(child);
-            }
-        }
+        List<Children> children = childrenService.findChildrenByIdParent(Math.toIntExact(id));
+        parent.get().setChildren(children);
         if (parent.isPresent()) {
-            Family family = new Family();
-            family.setParent(parent.get());
-            family.setChildren(hijos);
-            return ResponseEntity.ok().body(family);
+            return ResponseEntity.ok().body(parent);
         } else {
             return ResponseEntity.notFound().build();
         }

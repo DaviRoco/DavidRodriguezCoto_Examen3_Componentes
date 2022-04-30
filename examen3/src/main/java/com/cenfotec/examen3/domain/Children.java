@@ -1,38 +1,35 @@
 package com.cenfotec.examen3.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Children {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id_child;
     private String nombre;
     private String planUsuario;
     private String alergias;
-    private Long idParent;
+    private int idParent;
 
     public Children() {
     }
 
     public Children(Long id, String nombre, String planUsuario, String alergias, Long idParent) {
-        this.id = id;
+        this.id_child = id;
+        this.nombre = nombre;
+        this.planUsuario = planUsuario;
+        this.alergias = alergias;
+    }
+
+    public Children(Long id_child, String nombre, String planUsuario, String alergias, int idParent) {
+        this.id_child = id_child;
         this.nombre = nombre;
         this.planUsuario = planUsuario;
         this.alergias = alergias;
         this.idParent = idParent;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getNombre() {
         return nombre;
@@ -58,22 +55,19 @@ public class Children {
         this.alergias = alergias;
     }
 
-    public Long getIdParent() {
+    public Long getId_child() {
+        return id_child;
+    }
+
+    public void setId_child(Long id_child) {
+        this.id_child = id_child;
+    }
+
+    public int getIdParent() {
         return idParent;
     }
 
-    public void setIdParent(Long idParent) {
+    public void setIdParent(int idParent) {
         this.idParent = idParent;
-    }
-
-    @Override
-    public String toString() {
-        return "{" +
-                "id=" + id +
-                ", nombre='" + nombre +
-                ", planUsuario=" + planUsuario +
-                ", alergias=" + alergias +
-                ", idParent=" + idParent +
-                '}';
     }
 }
