@@ -1,10 +1,11 @@
 package com.cenfotec.examen3.controller;
 
 import com.cenfotec.examen3.domain.BookChildRecord;
-import com.cenfotec.examen3.domain.Book;
+import com.cenfotec.examen3.domain.TempBook;
 import com.cenfotec.examen3.domain.Children;
 import com.cenfotec.examen3.services.BookChildRecordService;
 import com.cenfotec.examen3.services.ChildrenService;
+import com.cenfotec.examen3.services.TempBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,8 @@ public class BookChildRecordController {
     private BookChildRecordService bookChildRecordService;
     @Autowired
     private ChildrenService childrenService;
+    @Autowired
+    private TempBookService tempBookService;
 
     @GetMapping
     public List getAll() {
@@ -37,14 +40,16 @@ public class BookChildRecordController {
     }
 
     @GetMapping(path = {"/child/{id}"})
-    public ResponseEntity<List<Book>> findByChild(@PathVariable long id) {
+    public ResponseEntity<List<Optional<TempBook>>> findByChild(@PathVariable long id) {
         List<BookChildRecord> bookChildRecords = bookChildRecordService.findByIdChild(id);
-        List<Book> libros = createTempBooks();
-        List<Book> result = new ArrayList<>();
+        List<Optional<TempBook>> result = new ArrayList<>();
+        Optional<TempBook> book;
         for (BookChildRecord bookChildRecord : bookChildRecords) {
-            result.add(libros.get(Math.toIntExact(bookChildRecord.getIdBook() - 1)));
+            book = tempBookService.findById(bookChildRecord.getIdBook());
+            if (book.isPresent()){
+                result.add(book);
+            }
         }
-
         if (result.isEmpty()) {
             return ResponseEntity.notFound().build();
         } else {
@@ -68,28 +73,14 @@ public class BookChildRecordController {
 
     @PostMapping
     public BookChildRecord create(@RequestBody BookChildRecord bookChildRecord) {
-        ArrayList<Book> libros = createTempBooks();
         Optional<Children> child = childrenService.findById(bookChildRecord.getIdChild());
-        for (int i = 0; i < libros.size(); i++) {
-            if (bookChildRecord.getIdBook() == libros.get(i).getId() && child.isPresent()) {
-                bookChildRecord.setNameBook(libros.get(i).getName());
-                bookChildRecord.setNameChild(child.get().getNombre());
-                return bookChildRecordService.save(bookChildRecord).get();
-            }
+        Optional<TempBook> book = tempBookService.findById(bookChildRecord.getIdBook());
+        if (child.isPresent() && book.isPresent()){
+            bookChildRecord.setNameBook(book.get().getName());
+            bookChildRecord.setNameChild(child.get().getNombre());
+            return bookChildRecordService.save(bookChildRecord).get();
         }
         return null;
-    }
-
-    private ArrayList<Book> createTempBooks() {
-        ArrayList<Book> libros = new ArrayList<Book>() {
-        };
-        libros.add(new Book(1, "Libro1", "test", "test"));
-        libros.add(new Book(2, "Libro2", "test", "test"));
-        libros.add(new Book(3, "Libro3", "test", "test"));
-        libros.add(new Book(4, "Libro4", "test", "test"));
-        libros.add(new Book(5, "Libro5", "test", "test"));
-
-        return libros;
     }
 
     @DeleteMapping(value = "/{id}")

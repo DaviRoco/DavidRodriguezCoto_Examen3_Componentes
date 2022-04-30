@@ -1,7 +1,6 @@
 package com.cenfotec.examen3.controller;
 
 import com.cenfotec.examen3.domain.Children;
-import com.cenfotec.examen3.domain.Family;
 import com.cenfotec.examen3.domain.Parent;
 import com.cenfotec.examen3.services.ChildrenService;
 import com.cenfotec.examen3.services.ParentService;
@@ -9,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
