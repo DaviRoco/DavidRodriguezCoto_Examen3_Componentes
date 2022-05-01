@@ -1,6 +1,7 @@
 package com.cenfotec.examen3.controller;
 
 import com.cenfotec.examen3.domain.BookChildRecord;
+import com.cenfotec.examen3.domain.BookCount;
 import com.cenfotec.examen3.domain.Children;
 import com.cenfotec.examen3.domain.TempBook;
 import com.cenfotec.examen3.services.BookChildRecordService;
@@ -58,11 +59,11 @@ public class BookChildRecordController {
     }
 
     @GetMapping(path = {"/childrenBookcount"})
-    public ResponseEntity<ArrayList<String>> getBookCount() {
-        ArrayList<String> childrenBookCount = new ArrayList<>();
+    public ResponseEntity<ArrayList<BookCount>> getBookCount() {
+        ArrayList<BookCount> childrenBookCount = new ArrayList<>();
         List<Children> children = childrenService.getAll();
         for (Children child : children) {
-            childrenBookCount.add("Identificación: " + child.getId_child() + ", Nombre: " + child.getNombre() + ", cantidad de libros leídos: " + bookChildRecordService.countAllByIdChild(child.getId_child()));
+            childrenBookCount.add(new BookCount(child.getNombre(), bookChildRecordService.countAllByIdChild(child.getId_child())));
         }
         if (childrenBookCount.isEmpty()) {
             return ResponseEntity.notFound().build();
