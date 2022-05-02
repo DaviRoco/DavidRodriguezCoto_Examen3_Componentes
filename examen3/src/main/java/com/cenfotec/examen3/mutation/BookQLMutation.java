@@ -39,7 +39,7 @@ public class BookQLMutation implements GraphQLMutationResolver {
         Optional<BookQL> book = this.bookQLService.getBook(id);
         if (book.isPresent()) {
             BookQL bookEntity = book.get();
-            bookEntity.setStatus("Inactivo");
+            bookEntity.setStatus("inactivo");
             bookQLService.save(bookEntity);
             return bookEntity;
         }

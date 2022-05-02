@@ -36,12 +36,12 @@ public class ParentController {
     }
 
     @GetMapping(path = {"/name_middlename/{nombre}"})
-    public ResponseEntity<Optional<Parent>> findByNameMiddlename(@PathVariable String nombre) {
-        Optional<Parent> result = parentService.findParentByNombreContains(nombre);
-        if (result.isPresent()) {
-            return ResponseEntity.ok().body(result);
-        } else {
+    public ResponseEntity<List<Parent>> findByNameMiddlename(@PathVariable String nombre) {
+        List<Parent> result = parentService.findParentsByNombreContains(nombre);
+        if (result.isEmpty()) {
             return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok().body(result);
         }
     }
 

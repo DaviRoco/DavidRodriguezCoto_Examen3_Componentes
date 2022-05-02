@@ -1,24 +1,24 @@
 package com.cenfotec.examen3.domain;
 
 public class BookCount {
-    private String nombreLibro;
+    private String childName;
 
     private int count;
 
     public BookCount() {
     }
 
-    public BookCount(String nombreLibro, int count) {
-        this.nombreLibro = nombreLibro;
+    public BookCount(String childName, int count) {
+        this.childName = childName;
         this.count = count;
     }
 
-    public String getNombreLibro() {
-        return nombreLibro;
+    public String getChildName() {
+        return childName;
     }
 
-    public void setNombreLibro(String nombreLibro) {
-        this.nombreLibro = nombreLibro;
+    public void setChildName(String childName) {
+        this.childName = childName;
     }
 
     public int getCount() {

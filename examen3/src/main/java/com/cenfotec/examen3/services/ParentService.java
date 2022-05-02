@@ -21,8 +21,8 @@ public class ParentService {
         return parentRepository.findById(id).map(record -> Optional.of(record)).orElse(Optional.empty());
     }
 
-    public Optional<Parent> findParentByNombreContains(String nombre) {
-        return parentRepository.findParentByNombreContains(nombre).map(record -> Optional.of(record)).orElse(Optional.empty());
+    public List<Parent> findParentsByNombreContains(String nombre) {
+        return parentRepository.findParentsByNombreContains(nombre);
     }
 
     public Optional<Parent> save(Parent parent) {
