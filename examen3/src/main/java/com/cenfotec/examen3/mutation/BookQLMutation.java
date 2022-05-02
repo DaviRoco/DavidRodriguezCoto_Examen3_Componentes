@@ -11,7 +11,7 @@ import java.util.Optional;
 @Component
 public class BookQLMutation implements GraphQLMutationResolver {
     @Autowired
-    private BookQLService bookQLService;
+    private BookQLService bookQLService; 
 
     public BookQL createBook(String name, String author, String genre, String status) {
         return this.bookQLService.createBook(name, author, genre, status);
